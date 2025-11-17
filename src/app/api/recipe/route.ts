@@ -3,16 +3,16 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(req: NextRequest) {
   try {
     const { query } = await req.json();
-    
+
     const apiKey = process.env.DEEPSEEK_API_KEY;
-    
+
     if (!apiKey) {
       return NextResponse.json(
         { error: 'DeepSeek API Key nicht konfiguriert' },
         { status: 500 }
       );
     }
-    
+
     const response = await fetch('https://api.deepseek.com/chat/completions', {
       method: 'POST',
       headers: {
@@ -40,9 +40,9 @@ export async function POST(req: NextRequest) {
 
     const data = await response.json();
     const recipe = data.choices?.[0]?.message?.content;
-    
-    return NextResponse.json({ 
-      result: recipe || 'Keine Antwort von DeepSeek' 
+
+    return NextResponse.json({
+      result: recipe || 'Keine Antwort von DeepSeek'
     });
   } catch (error) {
     return NextResponse.json(
