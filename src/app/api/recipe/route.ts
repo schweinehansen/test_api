@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json(data);
   } catch (error) {
     return NextResponse.json(
-      { error: 'API Error' },
+      { error: 'API Error', details: String(error) },
       { status: 500 }
     );
   }
